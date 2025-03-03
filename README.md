@@ -53,7 +53,7 @@ Follow the prompts to enter the graph details and select the algorithm to find t
 
 ## 🎨 Visualization
 The program plots the graph using **Matplotlib** to display the shortest path dynamically.
-<br>
+<p><br></p>
 <img src="image.png" width="800">
 
 ## 🤝 Contributing
