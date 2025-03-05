@@ -4,7 +4,7 @@
 The **Shortest Path Finder** is a Python-based project that implements graph traversal algorithms to find the shortest path between two nodes. This tool can be used for navigation systems, network routing, and AI pathfinding problems.
 
 ## ✨ Features
-- Supports **Dijkstra's Algorithm** and **A* Search Algorithm**.
+- Supports **Dijkstra's Algorithm**.
 - Visual representation of the shortest path.
 - Handles weighted and unweighted graphs.
 - Interactive user input for selecting source and destination nodes.
@@ -42,13 +42,6 @@ Follow the prompts to enter the graph details and select the algorithm to find t
 ### 1️⃣ Dijkstra's Algorithm
 - Works with **weighted graphs**.
 - Uses a priority queue to explore the shortest path.
-- Time complexity: **O((V + E) log V)**.
-
-### 2️⃣ A* Search Algorithm
-- Works with **weighted graphs** and incorporates heuristics.
-- Uses a cost function: `f(n) = g(n) + h(n)`, where:
-  - `g(n)`: cost from start node to `n`
-  - `h(n)`: estimated cost from `n` to goal
 - Time complexity: **O((V + E) log V)**.
 
 ## 🎨 Visualization
