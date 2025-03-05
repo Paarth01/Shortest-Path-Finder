@@ -5,33 +5,30 @@ import networkx as nx
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 import matplotlib.pyplot as plt
 
-def heuristic(a, b):
-    return abs(ord(a) - ord(b))  # Simple heuristic for demo
+def dijkstra(graph, start, goal):
+    pq = [(0, start)]  # (distance, node)
+    came_from = {}  # To store the shortest path tree
+    distances = {node: float('inf') for node in graph}
+    distances[start] = 0
 
-def a_star(graph, start, goal):
-    pq = [(0, start)]
-    came_from = {}
-    g_score = {node: float('inf') for node in graph}
-    g_score[start] = 0
-    
     while pq:
-        _, current = heapq.heappop(pq)
-        if current == goal:
+        current_distance, current_node = heapq.heappop(pq)
+
+        if current_node == goal:  # If we reach the goal, backtrack
             path = []
-            while current in came_from:
-                path.append(current)
-                current = came_from[current]
+            while current_node in came_from:
+                path.append(current_node)
+                current_node = came_from[current_node]
             path.append(start)
             return path[::-1]
-        
-        for neighbor, weight in graph[current].items():
-            temp_g_score = g_score[current] + weight
-            if temp_g_score < g_score[neighbor]:
-                g_score[neighbor] = temp_g_score
-                f_score = temp_g_score + heuristic(neighbor, goal)
-                heapq.heappush(pq, (f_score, neighbor))
-                came_from[neighbor] = current
-    
+
+        for neighbor, weight in graph[current_node].items():
+            new_distance = current_distance + weight
+            if new_distance < distances[neighbor]:
+                distances[neighbor] = new_distance
+                heapq.heappush(pq, (new_distance, neighbor))
+                came_from[neighbor] = current_node  # Track path
+
     return None  # No path found
 
 def find_shortest_path():
@@ -42,12 +39,13 @@ def find_shortest_path():
         messagebox.showerror("Error", "Start or Goal node not found in graph!")
         return
     
-    path = a_star(graph, start, goal)
+    path = dijkstra(graph, start, goal)  # Use Dijkstra instead of A*
+    
     if path:
         result_label.config(text=f"Shortest Path: {' → '.join(path)}")
+        update_graph(path)
     else:
         result_label.config(text="No path found")
-    update_graph(path)
 
 def add_edge():
     node1 = node1_entry.get().strip()
